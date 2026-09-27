@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Amazonia Conect</title>
+<title>PeçonhaFlora — evidência territorial de plantas medicinais e animais peçonhentos</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;800;900&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -249,8 +249,18 @@ L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/
 }).addTo(map);
 let camadaMarcadores = L.layerGroup().addTo(map);
 
-/* ---------- Municípios de Roraima (API oficial do IBGE, já em GeoJSON) ---------- */
-let camadaMunicipios, nomesMunicipios = {};
+/* ---------- Roraima: contorno do estado (dourado) + municípios (branco fino) ---------- */
+let camadaMunicipios, camadaEstadoRR, nomesMunicipios = {};
+
+fetch('https://servicodados.ibge.gov.br/api/v4/malhas/estados/RR?qualidade=2&formato=application/vnd.geo+json')
+  .then(r => r.json())
+  .then(geo => {
+    camadaEstadoRR = L.geoJSON(geo, {
+      style: () => ({color:'#c9a227', weight:3, fill:false})
+    }).addTo(map);
+    map.fitBounds(camadaEstadoRR.getBounds(), {padding:[20,20]});
+  })
+  .catch(() => console.warn('Contorno do estado indisponível agora.'));
 
 Promise.all([
   fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados/RR/municipios').then(r=>r.json()),
@@ -258,16 +268,14 @@ Promise.all([
 ]).then(([lista, geo]) => {
   lista.forEach(m => nomesMunicipios[String(m.id)] = m.nome);
   camadaMunicipios = L.geoJSON(geo, {
-    style: () => ({color:'#c9a227', weight:1.2, fillColor:'#1f3d1a', fillOpacity:.15}),
+    style: () => ({color:'#ffffff', weight:1, opacity:.5, fillOpacity:0}),
     onEachFeature: (feature, layer) => {
       const nome = nomesMunicipios[feature.properties.codarea] || 'Município';
       layer.bindTooltip(nome, {sticky:true});
-      layer.on('mouseover', () => layer.setStyle({fillOpacity:.4, weight:2}));
-      layer.on('mouseout', () => layer.setStyle({fillOpacity:.15, weight:1.2}));
+      layer.on('mouseover', () => layer.setStyle({fillOpacity:.15, fillColor:'#ffffff', weight:1.5}));
+      layer.on('mouseout', () => layer.setStyle({fillOpacity:0, weight:1}));
     }
   }).addTo(map);
-  camadaMunicipios.bringToBack();
-  map.fitBounds(camadaMunicipios.getBounds(), {padding:[20,20]});
   atualizarPainelRR();
 }).catch(() => console.warn('Malha de municípios do IBGE indisponível agora — o mapa segue funcionando só com os marcadores.'));
 
