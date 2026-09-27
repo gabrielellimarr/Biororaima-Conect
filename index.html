@@ -242,8 +242,8 @@ function dadosFiltrados(){
 
 /* ---------- Mapa ---------- */
 const map = L.map('atlas').setView([2.6,-61.0], 6.3); // centrado em Roraima
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-  attribution: '&copy; OpenStreetMap &copy; CARTO',
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; OpenStreetMap contributors',
   maxZoom: 12
 }).addTo(map);
 let camadaMarcadores = L.layerGroup().addTo(map);
