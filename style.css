@@ -1,5 +1,5 @@
 :root{
-  --bg:#f7f2e3; --ink:#16290f; --forest:#1f3d1a; --olive:#7c8a52; --clay:#8c5a2b;
+  --bg:#ffffff; --ink:#16290f; --forest:#1f3d1a; --olive:#7c8a52; --clay:#8c5a2b;
   --line:#e1d9c0; --card:#ffffff; --muted:#5c6650; --tagbg:#eef0e1;
   --gradeA:#1f3d1a; --gradeB:#7c8a52; --gradeC:#8c5a2b;
 }
@@ -7,6 +7,20 @@
 body{margin:0;background:var(--bg);color:var(--ink);font-family:'Public Sans',sans-serif;line-height:1.5}
 h1,h2,h3{font-family:'Poppins',sans-serif;font-weight:800;letter-spacing:-.01em;margin:0 0 .3em;text-transform:none}
 a{color:var(--forest)}
+.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;padding:.7rem 1.5rem;background:var(--bg);border-bottom:1px solid var(--line)}
+.topbar-brand{display:flex;align-items:center;gap:.7rem}
+.topbar-logo{width:2.4rem;height:2.4rem;border-radius:50%;background:var(--tagbg);display:flex;
+  align-items:center;justify-content:center;font-size:1.2rem}
+.topbar-brand strong{font-family:'Poppins',sans-serif;font-weight:800;font-size:1.15rem;display:block}
+.topbar-tag{font-size:.7rem;letter-spacing:.08em;color:var(--muted);font-weight:600}
+.topbar-links{display:flex;gap:1.4rem;flex-wrap:wrap}
+.topbar-links a{color:var(--ink);text-decoration:none;font-weight:600;font-size:.92rem;
+  padding-bottom:.3rem;border-bottom:2px solid transparent}
+.topbar-links a:hover,.topbar-links a:focus{border-color:var(--forest)}
+.topbar-avatar{width:2rem;height:2rem;border-radius:50%;border:2px solid var(--ink);flex-shrink:0}
+@media (max-width:800px){ .topbar-links{display:none} }
+
 header.hero{position:relative;padding:4rem 1.5rem 3rem;max-width:920px;margin:0 auto;overflow:hidden}
 .kicker{display:inline-flex;align-items:center;gap:.4rem;background:var(--tagbg);color:var(--forest);
   font-weight:600;font-size:.8rem;padding:.4rem .9rem;border-radius:20px;margin-bottom:1.2rem}
