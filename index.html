@@ -3,71 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Amazonia Conect — evidência territorial de plantas medicinais e animais peçonhentos</title>
+<title>PeçonhaFlora — evidência territorial de plantas medicinais e animais peçonhentos</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;800;900&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#f7f2e3; --ink:#16290f; --forest:#1f3d1a; --olive:#7c8a52; --clay:#8c5a2b;
-    --line:#e1d9c0; --card:#ffffff; --muted:#5c6650; --tagbg:#eef0e1;
-    --gradeA:#1f3d1a; --gradeB:#7c8a52; --gradeC:#8c5a2b;
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);font-family:'Public Sans',sans-serif;line-height:1.5}
-  h1,h2,h3{font-family:'Poppins',sans-serif;font-weight:800;letter-spacing:-.01em;margin:0 0 .3em;text-transform:none}
-  a{color:var(--forest)}
-  header.hero{position:relative;padding:4rem 1.5rem 3rem;max-width:920px;margin:0 auto;overflow:hidden}
-  .kicker{display:inline-flex;align-items:center;gap:.4rem;background:var(--tagbg);color:var(--forest);
-    font-weight:600;font-size:.8rem;padding:.4rem .9rem;border-radius:20px;margin-bottom:1.2rem}
-  .kicker b{color:inherit}
-  .kicker::before{content:"✱";font-size:.85em}
-  header.hero h1{font-size:clamp(2.3rem,6vw,3.6rem);max-width:14ch;line-height:1.05}
-  header.hero p{max-width:62ch;color:var(--muted);font-size:1.05rem}
-  .aviso{border-left:4px solid var(--forest);padding:.8rem 1rem;background:var(--tagbg);margin-top:1.5rem;font-size:.92rem;color:var(--ink);max-width:62ch;border-radius:0 4px 4px 0}
-  section{max-width:1080px;margin:0 auto;padding:2.5rem 1.5rem;border-top:1px solid var(--line)}
-  section > p.lede{color:var(--muted);max-width:62ch;margin-bottom:1.5rem}
-  .folha{position:absolute;opacity:.35;pointer-events:none}
-
-  .chips{display:flex;gap:.5rem;flex-wrap:wrap;margin:1rem 0}
-  .chip{border:1px solid var(--line);background:var(--card);padding:.5rem 1rem;border-radius:2px;cursor:pointer;font:inherit;font-size:.9rem;display:flex;align-items:center;gap:.5rem}
-  .chip[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:#fff}
-  .chip .dot{width:.6rem;height:.6rem;border-radius:50%;display:inline-block}
-
-  #atlas{height:480px;border:1px solid var(--line);border-bottom:8px solid var(--forest);border-radius:4px}
-  .legenda{display:flex;gap:1.2rem;flex-wrap:wrap;margin-top:.8rem;font-size:.85rem;color:var(--muted)}
-  .legenda span{display:inline-flex;align-items:center;gap:.4rem}
-  .anel-legenda{width:.9rem;height:.9rem;border-radius:50%;border:3px solid var(--forest);display:inline-block}
-
-  .abas{display:flex;gap:0;border-bottom:1px solid var(--line);margin-bottom:1.2rem}
-  .aba{padding:.6rem 1.1rem;cursor:pointer;border:none;background:none;font:inherit;font-size:.95rem;color:var(--muted);border-bottom:2px solid transparent}
-  .aba[aria-selected="true"]{color:var(--ink);border-color:var(--forest);font-weight:600}
-  .vista{display:none}
-  .vista.ativa{display:block}
-
-  table{width:100%;border-collapse:collapse;font-size:.92rem}
-  th,td{text-align:left;padding:.55rem .6rem;border-bottom:1px solid var(--line)}
-  th{color:var(--muted);font-weight:500}
-  .grade{font-weight:600}
-
-  .grid-fichas{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem}
-  .ficha{background:var(--card);border:1px solid var(--line);border-bottom:6px solid var(--forest);border-radius:4px;padding:1.1rem}
-  .ficha h3{font-size:1.15rem}
-  .ficha .tipo{display:inline-block;font-size:.72rem;color:var(--forest);background:var(--tagbg);
-    padding:.25rem .6rem;border-radius:12px;margin-bottom:.6rem;font-weight:600}
-  .ficha dl{margin:.6rem 0 0;font-size:.85rem}
-  .ficha dt{color:var(--muted);margin-top:.5rem}
-  .ficha dd{margin:0}
-  .ficha .badge{display:inline-block;margin-top:.7rem;padding:.15rem .6rem;border-radius:10px;font-size:.78rem;color:#fff}
-
-  .escala{border-collapse:collapse;width:100%;font-size:.9rem;margin-top:1rem}
-  .escala td,.escala th{border:1px solid var(--line);padding:.6rem}
-
-  footer{max-width:1080px;margin:0 auto;padding:2.5rem 1.5rem 4rem;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
-  .btn{border:1px solid var(--forest);background:var(--forest);color:#fff;padding:.6rem 1.1rem;border-radius:3px;cursor:pointer;font:inherit}
-  .creditos{margin-top:1rem;font-size:.8rem}
-  .creditos li{margin-bottom:.2rem}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -84,7 +24,7 @@
     <div class="kicker"><b>Prova de conceito</b> · dados de exemplo, não é um serviço em operação</div>
     <span style="background:var(--tagbg);color:var(--forest);font-size:.75rem;font-weight:600;padding:.35rem .8rem;border-radius:20px">RR · lavrado</span>
   </div>
-  <h1>Amazonia Conect</h1>
+  <h1>Da mata ao frasco: rastreando a evidência de plantas medicinais e animais peçonhentos</h1>
   <p>Este protótipo organiza, num só lugar, onde cada organismo ocorre, qual molécula dele já foi
      descrita e qual ação biológica foi observada em ensaio — preservando a procedência de cada
      elo e o nível de evidência documental por trás dele.</p>
@@ -157,7 +97,7 @@
     <thead><tr><th>Camada</th><th>Fonte</th><th>Observação</th></tr></thead>
     <tbody>
       <tr><td>Ocorrência / distribuição</td><td>GBIF</td><td>substituir pelos links de ocorrência reais do seu conjunto</td></tr>
-      <tr><td>Malha territorial</td><td>IBGE</td><td>este protótipo usa coordenadas de capital como aproximação; ver README para malha completa</td></tr>
+      <tr><td>Malha territorial</td><td>IBGE</td><td>API oficial de malhas — contorno do estado e municípios de Roraima</td></tr>
       <tr><td>Estrutura molecular</td><td>PubChem</td><td>substituir pelos CIDs reais</td></tr>
       <tr><td>Estrutura cristalográfica</td><td>PDB</td><td>quando houver toxina/enzima resolvida</td></tr>
       <tr><td>Atividade biológica</td><td>literatura citada por registro</td><td>preencher DOI/referência real por registro</td></tr>
@@ -167,7 +107,7 @@
 </section>
 
 <footer>
-  <p><strong>Amazonia Conect</strong> — protótipo de um banco de dados para demonstração
+  <p><strong>PeçonhaFlora</strong> — protótipo adaptado do modelo BioMapaBrasil, com dados de demonstração
      sobre plantas medicinais e animais peçonhentos brasileiros. Substitua os registros de exemplo pelos
      seus próprios dados curados antes de qualquer uso além de demonstração.</p>
   <p>Os nomes científicos, tipos de composto e usos tradicionais citados aqui refletem conhecimento geral
@@ -176,215 +116,6 @@
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script>
-/* ---------- Dados de exemplo (SUBSTITUIR pelos dados reais do seu levantamento) ---------- */
-const REGISTROS = [
-  {
-    id:'r1', organismo:'Bothrops jararaca', tipo:'animal', uf:'SP', lat:-23.55, lng:-46.63,
-    territorio:{grau:'A', fonte:'GBIF (placeholder)'},
-    especie:{grau:'A', fonte:'ocorrência catalogada'},
-    molecula:{grau:'A', nome:'peptídeos potenciadores de bradicinina', fonte:'PubChem (placeholder CID)'},
-    atividade:{grau:'B', desc:'inibição de enzima conversora de angiotensina (base histórica do captopril)', fonte:'literatura consolidada — inserir DOI'}
-  },
-  {
-    id:'r2', organismo:'Crotalus durissus', tipo:'animal', uf:'MT', lat:-15.6, lng:-56.1,
-    territorio:{grau:'A', fonte:'GBIF (placeholder)'},
-    especie:{grau:'A', fonte:'ocorrência catalogada'},
-    molecula:{grau:'B', nome:'crotoxina', fonte:'revisão de toxinologia — inserir DOI'},
-    atividade:{grau:'B', desc:'atividade citotóxica observada in vitro em linhagens tumorais', fonte:'inserir DOI'}
-  },
-  {
-    id:'r3', organismo:'Bothrops atrox', tipo:'animal', uf:'RR', lat:2.82, lng:-60.67,
-    territorio:{grau:'A', fonte:'GBIF (placeholder)'},
-    especie:{grau:'A', fonte:'ocorrência catalogada'},
-    molecula:{grau:'C', nome:'metaloproteinases não isoladas neste registro', fonte:'não documentado'},
-    atividade:{grau:'C', desc:'ação proteolítica descrita apenas em nível clínico geral', fonte:'não documentado'}
-  },
-  {
-    id:'r4', organismo:'Combretum leprosum', tipo:'planta', uf:'CE', lat:-3.73, lng:-38.53,
-    territorio:{grau:'A', fonte:'GBIF (placeholder)'},
-    especie:{grau:'A', fonte:'ocorrência catalogada'},
-    molecula:{grau:'B', nome:'flavonoides e taninos', fonte:'revisão fitoquímica — inserir DOI'},
-    atividade:{grau:'B', desc:'atividade anti-inflamatória e cicatrizante em modelo animal', fonte:'inserir DOI'}
-  },
-  {
-    id:'r5', organismo:'Tabernaemontana catharinensis', tipo:'planta', uf:'RS', lat:-30.03, lng:-51.2,
-    territorio:{grau:'A', fonte:'GBIF (placeholder)'},
-    especie:{grau:'A', fonte:'ocorrência catalogada'},
-    molecula:{grau:'B', nome:'alcaloides indólicos', fonte:'literatura fitoquímica — inserir DOI'},
-    atividade:{grau:'C', desc:'uso tradicional relatado contra picada de cobra', fonte:'levantamento etnobotânico — inserir referência'}
-  },
-  {
-    id:'r6', organismo:'Curatella americana', tipo:'planta', uf:'RR', lat:3.15, lng:-60.85,
-    territorio:{grau:'A', fonte:'GBIF (placeholder)'},
-    especie:{grau:'A', fonte:'ocorrência catalogada'},
-    molecula:{grau:'C', nome:'taninos não isolados neste registro', fonte:'não documentado'},
-    atividade:{grau:'C', desc:'uso tradicional popular como adstringente no lavrado', fonte:'levantamento etnobotânico — inserir referência'}
-  }
-];
-
-const RANK = {A:3,B:2,C:1};
-function grauRegistro(r){
-  return [r.territorio,r.especie,r.molecula,r.atividade]
-    .reduce((pior,elo)=> RANK[elo.grau] < RANK[pior] ? elo.grau : pior, 'A');
-}
-REGISTROS.forEach(r => r.grauFinal = grauRegistro(r));
-
-const CORES = {A:'var(--gradeA)', B:'var(--gradeB)', C:'var(--gradeC)'};
-
-/* ---------- Estado compartilhado ---------- */
-let filtroGrau = null;
-let filtroUF = null;
-
-function dadosFiltrados(){
-  return REGISTROS.filter(r =>
-    (!filtroGrau || r.grauFinal === filtroGrau) && (!filtroUF || r.uf === filtroUF));
-}
-
-/* ---------- Mapa ---------- */
-const map = L.map('atlas').setView([2.6,-61.2], 7);
-L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-  attribution: 'Tiles &copy; Esri — Source: Esri, Maxar, Earthstar Geographics',
-  maxZoom: 13
-}).addTo(map);
-let camadaMarcadores = L.layerGroup().addTo(map);
-
-/* ---------- Roraima: contorno do estado (dourado) + municípios (branco fino) ---------- */
-let camadaMunicipios, camadaEstadoRR, nomesMunicipios = {};
-
-fetch('https://servicodados.ibge.gov.br/api/v4/malhas/estados/RR?qualidade=2&formato=application/vnd.geo+json')
-  .then(r => r.json())
-  .then(geo => {
-    camadaEstadoRR = L.geoJSON(geo, {
-      style: () => ({color:'#c9a227', weight:3, fill:false})
-    }).addTo(map);
-    map.fitBounds(camadaEstadoRR.getBounds(), {padding:[20,20]});
-  })
-  .catch(() => console.warn('Contorno do estado indisponível agora.'));
-
-Promise.all([
-  fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados/RR/municipios').then(r=>r.json()),
-  fetch('https://servicodados.ibge.gov.br/api/v4/malhas/estados/RR?intrarregiao=municipio&qualidade=2&formato=application/vnd.geo+json').then(r=>r.json())
-]).then(([lista, geo]) => {
-  lista.forEach(m => nomesMunicipios[String(m.id)] = m.nome);
-  camadaMunicipios = L.geoJSON(geo, {
-    style: () => ({color:'#ffffff', weight:1, opacity:.5, fillOpacity:0}),
-    onEachFeature: (feature, layer) => {
-      const nome = nomesMunicipios[feature.properties.codarea] || 'Município';
-      layer.bindTooltip(nome, {sticky:true});
-      layer.on('mouseover', () => layer.setStyle({fillOpacity:.15, fillColor:'#ffffff', weight:1.5}));
-      layer.on('mouseout', () => layer.setStyle({fillOpacity:0, weight:1}));
-    }
-  }).addTo(map);
-  atualizarPainelRR();
-}).catch(() => console.warn('Malha de municípios do IBGE indisponível agora — o mapa segue funcionando só com os marcadores.'));
-
-function atualizarPainelRR(){
-  const painel = document.getElementById('painel-rr');
-  if(!painel) return;
-  const doRR = REGISTROS.filter(r => r.uf === 'RR');
-  const porGrau = {A:0,B:0,C:0};
-  doRR.forEach(r => porGrau[r.grauFinal]++);
-  painel.innerHTML = `
-    <strong>${Object.keys(nomesMunicipios).length || 15}</strong> municípios de Roraima ·
-    <strong>${doRR.length}</strong> registros no estado
-    (A: ${porGrau.A} · B: ${porGrau.B} · C: ${porGrau.C})`;
-}
-
-function icone(r){
-  const cor = CORES[r.grauFinal];
-  const simbolo = r.tipo === 'animal' ? '◆' : '❋';
-  return L.divIcon({
-    className:'',
-    html:`<div style="width:26px;height:26px;border-radius:50%;border:3px solid ${cor};
-      background:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;color:${cor}">${simbolo}</div>`,
-    iconSize:[26,26]
-  });
-}
-
-function renderMapa(lista){
-  camadaMarcadores.clearLayers();
-  lista.forEach(r=>{
-    L.marker([r.lat,r.lng], {icon: icone(r)})
-      .bindPopup(`<strong>${r.organismo}</strong><br>${r.uf} · grau ${r.grauFinal}<br>${r.atividade.desc}`)
-      .addTo(camadaMarcadores);
-  });
-}
-
-/* ---------- Tabela ---------- */
-function renderTabela(lista){
-  document.getElementById('corpo-tabela').innerHTML = lista.map(r=>`
-    <tr>
-      <td><em>${r.organismo}</em></td>
-      <td>${r.tipo === 'animal' ? 'Animal' : 'Planta'}</td>
-      <td>${r.uf}</td>
-      <td>${r.molecula.nome}</td>
-      <td>${r.atividade.desc}</td>
-      <td class="grade" style="color:${CORES[r.grauFinal]}">${r.grauFinal}</td>
-    </tr>`).join('');
-}
-
-/* ---------- Fichas ---------- */
-function renderFichas(lista){
-  document.getElementById('grid-fichas').innerHTML = lista.map(r=>`
-    <div class="ficha">
-      <div class="tipo">${r.tipo === 'animal' ? 'Animal peçonhento' : 'Planta medicinal'} · ${r.uf}</div>
-      <h3><em>${r.organismo}</em></h3>
-      <dl>
-        <dt>Molécula / composto</dt><dd>${r.molecula.nome}</dd>
-        <dt>Ação observada</dt><dd>${r.atividade.desc}</dd>
-        <dt>Procedência</dt><dd>${r.atividade.fonte}</dd>
-      </dl>
-      <span class="badge" style="background:${CORES[r.grauFinal]}">grau ${r.grauFinal}</span>
-    </div>`).join('');
-}
-
-function renderizarTudo(){
-  const lista = dadosFiltrados();
-  renderMapa(lista);
-  renderTabela(lista);
-  renderFichas(lista);
-  const aviso = document.getElementById('filtro-uf-aviso');
-  if(filtroUF){ aviso.style.display='block'; aviso.textContent = `Filtrando por ${filtroUF} — toque no estado de novo para limpar.`; }
-  else { aviso.style.display='none'; }
-}
-
-/* ---------- Chips de filtro por grau ---------- */
-const chipsWrap = document.getElementById('chips-grau');
-['A','B','C'].forEach(g=>{
-  const chip = document.createElement('button');
-  chip.className='chip'; chip.setAttribute('aria-pressed','false');
-  chip.innerHTML = `<span class="dot" style="background:${CORES[g]}"></span> Grau ${g}`;
-  chip.onclick = ()=>{
-    filtroGrau = (filtroGrau === g) ? null : g;
-    document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed', c===chip && filtroGrau ? 'true':'false'));
-    renderizarTudo();
-  };
-  chipsWrap.appendChild(chip);
-});
-
-/* ---------- Abas (mapa/tabela/fichas) — sem recarregar dados ---------- */
-document.querySelectorAll('.aba').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    const alvo = btn.dataset.vista;
-    if(alvo === 'mapa'){ document.getElementById('atlas-sec').scrollIntoView({behavior:'smooth'}); return; }
-    document.querySelectorAll('.aba').forEach(b=>b.setAttribute('aria-selected', b===btn ? 'true':'false'));
-    document.querySelectorAll('.vista').forEach(v=> v.classList.toggle('ativa', v.dataset.vista===alvo));
-  });
-});
-
-/* ---------- Exportar CSV client-side ---------- */
-document.getElementById('btn-csv').addEventListener('click', ()=>{
-  const lista = dadosFiltrados();
-  const linhas = lista.map(r=>[r.organismo,r.tipo,r.uf,r.molecula.nome,r.atividade.desc,r.grauFinal]
-    .map(v=>`"${String(v).replace(/"/g,'""')}"`).join(','));
-  const csv = ['"organismo","tipo","uf","molecula","atividade","grau"', ...linhas].join('\n');
-  const blob = new Blob([csv], {type:'text/csv'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob); a.download = 'peconhaflora.csv'; a.click();
-});
-
-renderizarTudo();
-</script>
+<script src="app.js"></script>
 </body>
 </html>

@@ -1,0 +1,44 @@
+[
+  {
+    "id": "r1", "organismo": "Bothrops jararaca", "tipo": "animal", "uf": "SP", "lat": -23.55, "lng": -46.63,
+    "territorio": {"grau": "A", "fonte": "GBIF (placeholder)"},
+    "especie": {"grau": "A", "fonte": "ocorrência catalogada"},
+    "molecula": {"grau": "A", "nome": "peptídeos potenciadores de bradicinina", "fonte": "PubChem (placeholder CID)"},
+    "atividade": {"grau": "B", "desc": "inibição de enzima conversora de angiotensina (base histórica do captopril)", "fonte": "literatura consolidada — inserir DOI"}
+  },
+  {
+    "id": "r2", "organismo": "Crotalus durissus", "tipo": "animal", "uf": "MT", "lat": -15.6, "lng": -56.1,
+    "territorio": {"grau": "A", "fonte": "GBIF (placeholder)"},
+    "especie": {"grau": "A", "fonte": "ocorrência catalogada"},
+    "molecula": {"grau": "B", "nome": "crotoxina", "fonte": "revisão de toxinologia — inserir DOI"},
+    "atividade": {"grau": "B", "desc": "atividade citotóxica observada in vitro em linhagens tumorais", "fonte": "inserir DOI"}
+  },
+  {
+    "id": "r3", "organismo": "Bothrops atrox", "tipo": "animal", "uf": "RR", "lat": 2.82, "lng": -60.67,
+    "territorio": {"grau": "A", "fonte": "GBIF (placeholder)"},
+    "especie": {"grau": "A", "fonte": "ocorrência catalogada"},
+    "molecula": {"grau": "C", "nome": "metaloproteinases não isoladas neste registro", "fonte": "não documentado"},
+    "atividade": {"grau": "C", "desc": "ação proteolítica descrita apenas em nível clínico geral", "fonte": "não documentado"}
+  },
+  {
+    "id": "r4", "organismo": "Combretum leprosum", "tipo": "planta", "uf": "CE", "lat": -3.73, "lng": -38.53,
+    "territorio": {"grau": "A", "fonte": "GBIF (placeholder)"},
+    "especie": {"grau": "A", "fonte": "ocorrência catalogada"},
+    "molecula": {"grau": "B", "nome": "flavonoides e taninos", "fonte": "revisão fitoquímica — inserir DOI"},
+    "atividade": {"grau": "B", "desc": "atividade anti-inflamatória e cicatrizante em modelo animal", "fonte": "inserir DOI"}
+  },
+  {
+    "id": "r5", "organismo": "Tabernaemontana catharinensis", "tipo": "planta", "uf": "RS", "lat": -30.03, "lng": -51.2,
+    "territorio": {"grau": "A", "fonte": "GBIF (placeholder)"},
+    "especie": {"grau": "A", "fonte": "ocorrência catalogada"},
+    "molecula": {"grau": "B", "nome": "alcaloides indólicos", "fonte": "literatura fitoquímica — inserir DOI"},
+    "atividade": {"grau": "C", "desc": "uso tradicional relatado contra picada de cobra", "fonte": "levantamento etnobotânico — inserir referência"}
+  },
+  {
+    "id": "r6", "organismo": "Curatella americana", "tipo": "planta", "uf": "RR", "lat": 3.15, "lng": -60.85,
+    "territorio": {"grau": "A", "fonte": "GBIF (placeholder)"},
+    "especie": {"grau": "A", "fonte": "ocorrência catalogada"},
+    "molecula": {"grau": "C", "nome": "taninos não isolados neste registro", "fonte": "não documentado"},
+    "atividade": {"grau": "C", "desc": "uso tradicional popular como adstringente no lavrado", "fonte": "levantamento etnobotânico — inserir referência"}
+  }
+]
