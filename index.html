@@ -106,6 +106,7 @@
     <span><span class="anel-legenda" style="border-color:var(--gradeC)"></span> Grau C — uso tradicional relatado, sem fonte primária formal</span>
   </div>
   <p id="filtro-uf-aviso" style="display:none;margin-top:.6rem;font-size:.85rem;color:var(--forest)"></p>
+  <p id="painel-rr" style="margin-top:.8rem;padding:.7rem 1rem;background:var(--tagbg);border-radius:4px;font-size:.9rem;color:var(--forest)">Carregando estatísticas de Roraima…</p>
 </section>
 
 <section id="lastro-sec">
@@ -241,38 +242,46 @@ function dadosFiltrados(){
 }
 
 /* ---------- Mapa ---------- */
-const map = L.map('atlas').setView([2.6,-61.0], 6.3); // centrado em Roraima
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '&copy; OpenStreetMap contributors',
-  maxZoom: 12
+const map = L.map('atlas').setView([2.6,-61.2], 7);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+  attribution: 'Tiles &copy; Esri — Source: Esri, Maxar, Earthstar Geographics',
+  maxZoom: 13
 }).addTo(map);
 let camadaMarcadores = L.layerGroup().addTo(map);
 
-/* ---------- Malha de estados (API oficial do IBGE, já em GeoJSON) ---------- */
-const CODAREA_PARA_UF = {'11':'RO','12':'AC','13':'AM','14':'RR','15':'PA','16':'AP','17':'TO',
-  '21':'MA','22':'PI','23':'CE','24':'RN','25':'PB','26':'PE','27':'AL','28':'SE','29':'BA',
-  '31':'MG','32':'ES','33':'RJ','35':'SP','41':'PR','42':'SC','43':'RS','50':'MS','51':'MT','52':'GO','53':'DF'};
-let camadaEstados;
+/* ---------- Municípios de Roraima (API oficial do IBGE, já em GeoJSON) ---------- */
+let camadaMunicipios, nomesMunicipios = {};
 
-fetch('https://servicodados.ibge.gov.br/api/v4/malhas/paises/BR?intrarregiao=UF&qualidade=1&formato=application/vnd.geo+json')
-  .then(r => r.json())
-  .then(geo => {
-    camadaEstados = L.geoJSON(geo, {
-      style: () => ({color:'#b7bfa0', weight:1, fillColor:'#eef0e1', fillOpacity:.4}),
-      onEachFeature: (feature, layer) => {
-        const uf = CODAREA_PARA_UF[feature.properties.codarea];
-        layer.on('mouseover', () => layer.setStyle({fillOpacity:.7}));
-        layer.on('mouseout', () => layer.setStyle({fillOpacity: filtroUF===uf ? .7 : .4}));
-        layer.on('click', () => {
-          filtroUF = (filtroUF === uf) ? null : uf;
-          camadaEstados.eachLayer(l => l.setStyle({fillOpacity: l===layer && filtroUF ? .7 : .4}));
-          renderizarTudo();
-        });
-      }
-    }).addTo(map);
-    camadaEstados.bringToBack();
-  })
-  .catch(() => console.warn('Malha do IBGE indisponível agora — o mapa segue funcionando só com os marcadores.'));
+Promise.all([
+  fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados/RR/municipios').then(r=>r.json()),
+  fetch('https://servicodados.ibge.gov.br/api/v4/malhas/estados/RR?intrarregiao=municipio&qualidade=2&formato=application/vnd.geo+json').then(r=>r.json())
+]).then(([lista, geo]) => {
+  lista.forEach(m => nomesMunicipios[String(m.id)] = m.nome);
+  camadaMunicipios = L.geoJSON(geo, {
+    style: () => ({color:'#c9a227', weight:1.2, fillColor:'#1f3d1a', fillOpacity:.15}),
+    onEachFeature: (feature, layer) => {
+      const nome = nomesMunicipios[feature.properties.codarea] || 'Município';
+      layer.bindTooltip(nome, {sticky:true});
+      layer.on('mouseover', () => layer.setStyle({fillOpacity:.4, weight:2}));
+      layer.on('mouseout', () => layer.setStyle({fillOpacity:.15, weight:1.2}));
+    }
+  }).addTo(map);
+  camadaMunicipios.bringToBack();
+  map.fitBounds(camadaMunicipios.getBounds(), {padding:[20,20]});
+  atualizarPainelRR();
+}).catch(() => console.warn('Malha de municípios do IBGE indisponível agora — o mapa segue funcionando só com os marcadores.'));
+
+function atualizarPainelRR(){
+  const painel = document.getElementById('painel-rr');
+  if(!painel) return;
+  const doRR = REGISTROS.filter(r => r.uf === 'RR');
+  const porGrau = {A:0,B:0,C:0};
+  doRR.forEach(r => porGrau[r.grauFinal]++);
+  painel.innerHTML = `
+    <strong>${Object.keys(nomesMunicipios).length || 15}</strong> municípios de Roraima ·
+    <strong>${doRR.length}</strong> registros no estado
+    (A: ${porGrau.A} · B: ${porGrau.B} · C: ${porGrau.C})`;
+}
 
 function icone(r){
   const cor = CORES[r.grauFinal];
